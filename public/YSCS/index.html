@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>看看你的艺术细胞有多少</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="description" content="Description...">
+    <meta name="keywords" content="keyword1,keyword2,keyword3..">
+    <meta name="author" content="rusherwang,396276123@qq.com">
+
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+
+</head>
+<!--[if lte IE 7]>      
+<body scroll="no"> 
+<![endif]-->
+<!--[if gt IE 7]><!--> 
+<body> 
+<!--<![endif]-->
+    <div class="loading">
+        <div class="line"></div>
+    </div>
+	<div id="pageContain">
+
+
+	</div>
+	<ul id="navBar">
+		<li>0</li>
+		<li>1</li>
+		<li>2</li>
+ 		<li>3</li>
+		<li>4</li>
+		<li>5</li>
+        <li>6</li>
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+        <li>10</li>
+        <li>11</li>
+        <li>12</li>
+        <li>13</li>
+        <li>14</li>
+        <li>15</li>
+        <li>16</li>
+	</ul>
+    <div class="answer-bg"></div>
+    <img class="right-answer" src="css/img/wrong/right.png">
+    <img class="wrong-answer" src="css/img/wrong/w1.png">
+    <img class="next-qus" src="css/img/xyt.png">
+    <img class="next-quso" src="css/img/xyto.png">
+
+
+
+<!-- 前端模板部分 -->
+<script type="text/template"  id="questionList">
+    <div class="page  current">
+        <div class="contain welcom">
+            <img class="bg" src="css/img/welcom/bg.png">
+            <img class="start next-qus" src="css/img/welcom/start.png">
+
+        </div>
+    </div>
+
+
+    <%for(var i = 0; i< list.length;i++){
+    var item = list[i];
+    var index_ = i;
+    %>
+    <div class="page">
+        <div class="contain">
+            <div class="title-num from-right">
+                <img class="rotate" src="css/img/titleNumBg.png">
+                <p><%=(item.num)%></p>
+            </div>
+            <div class="qus-detail midle">
+                <p class="tit f-ff1 f-taj">
+                    <%=(item.tit)%>
+                </p>
+                <img class="img-show" src="<%=(item.pic)%>">
+                <div class="answer f-cb">
+                    <div class="f-fl f-ib">
+                        <div class="box" onclick="judgeAnswer('<%=(index_)%>','a')"><div><img src="css/img/a.png"></div><div class="cli">.<%=(item.answer.a)%></div></div>
+                    </div>
+                    <div class="f-fl f-ib">
+                        <div class="box"  onclick="judgeAnswer('<%=(index_)%>','b')"><div><img src="css/img/b.png"></div><div class="cli">.<%=(item.answer.b)%></div></div>
+                    </div>
+                    <div class="f-fl f-ib">
+                        <div class="box"  onclick="judgeAnswer('<%=(index_)%>','c')"><div><img src="css/img/c.png"></div><div class="cli">.<%=(item.answer.c)%></div></div>
+                    </div>
+                    <div class="f-fl f-ib">
+                        <div class="box"  onclick="judgeAnswer('<%=(index_)%>','d')"><div><img src="css/img/d.png"></div><div class="cli">.<%=(item.answer.d)%></div></div>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    <%}%>
+
+    <div class="page result">
+        <div class="contain">
+            <div class="result-pic">
+                <img  src="css/img/result/a.png">
+            </div>
+            <div class="operate">
+                <a class="f-ib apply-btn"><img src="css/img/result/op_r1_c5.png"></a>
+                <a class="f-ib retry-btn"><img src="css/img/result/op_r2_c1.png"></a>
+                <a class="f-ib invite-btn"><img src="css/img/result/op_r5_c3.png"></a>
+            </div>
+
+            <div class="invite">
+                <img src="css/img/result/invite.png">
+            </div>
+        </div>
+    </div>
+</script>
+<!-- 前端模板结束 -->
+
+<script type="text/javascript" src="js/zepto.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="js/baiduTpl.js"></script>
+<script type="text/javascript" src="js/fullPage.js"></script>
+<script type="text/javascript" src="js/question.js"></script>
+<script type="text/javascript">
+
+    $(function(){
+        initLoading();
+        if(cheackMobile()){
+            render();
+            window.onload = initAll;
+        }else{
+            setTimeout(function(){
+                alert("该网页不适配“非移动浏览器”！");
+            },5000);
+        }
+
+    });
+
+    var $right_answer = $(".right-answer");
+    var $wrong_answer = $(".wrong-answer");
+    var $answer_bg = $(".answer-bg");
+    var questionNum = 0;
+    function render(){
+        var questionList = baidu.template('questionList');
+        var html = questionList({list:quetionList});
+        $("#pageContain").html(html);
+
+
+    }
+
+    var interval = undefined;
+    function initLoading(){
+        var $loading = $(".loading .line");
+        var scale = 1;
+        interval = setInterval(function(){
+            scale = scale+(90-scale)*0.3;
+            $loading.css("width",scale+"%")
+
+        },1000);
+    }
+    function finishLoading(){
+        if(interval){
+            clearInterval(interval);
+            $(".loading .line").css("width","100%");
+            setTimeout(function(){
+                $(".loading").css("display","none");
+                $(".welcom .bg").css("display","block");
+                $(".welcom .start").css("display","block");
+
+            },1000);
+        }
+    }
+
+    function cheackMobile(){
+        var mobileAgent = ["iphone", "ipod", "android", "mobile", "blackberry", "webos", "incognito", "webmate", "bada", "nokia", "lg", "ucweb", "skyfire"];
+        var browser = navigator.userAgent.toLowerCase();
+        var isMobile = false;
+        for (var i = 0; i < mobileAgent.length; i++) {
+            if (browser.indexOf(mobileAgent[i]) != -1) {
+                isMobile = true;
+                break;
+            }
+        }
+        return isMobile;
+    }
+
+    function initAll(){
+        initPage();
+        initHeight();
+        finishLoading();
+        initWeixin();
+    }
+
+    function initPage(){
+        var runPage;
+        runPage = new FullPage({
+
+            id : 'pageContain',                            // id of contain
+            slideTime : 800,                               // time of slide
+            continuous : false,                            // create an infinite feel with no endpoints
+            effect : {                                     // slide effect
+                transform : {
+                    translate : 'Y',				   // 'X'|'Y'|'XY'|'none'
+                    scale : [.8, 1],				   // [scalefrom, scaleto]
+                    rotate : [10, 0]				       // [rotatefrom, rotateto]
+                },
+                opacity : [0, 1]                       // [opacityfrom, opacityto]
+            },
+            mode : 'nav:navBar',               // mode of fullpage
+            easing : 'ease'                                // easing('ease','ease-in','ease-in-out' or use cubic-bezier like [.33, 1.81, 1, 1];
+        });
+        $(".next-qus, .next-quso").click(function(){
+            runPage.next();
+            $right_answer.css('display',"none");
+            $wrong_answer.css('display',"none");
+            $answer_bg.css('display',"none");
+            $(this).css("display","none");
+            if(questionNum<14){
+                $wrong_answer.attr("src","css/img/wrong/w"+(parseInt(questionNum)+2)+".png");
+            }
+
+        });
+        runPage.go(16);
+        $(".result .invite").click(function(){
+             $(".result .invite").css("display","none");
+        });
+        $(".result .invite-btn").click(function(){
+            $(".result .invite").css("display","block");
+        });
+        $(".result .retry-btn").click(function(){
+            runPage.go(0);
+            score = 0;
+        });
+
+
+    }
+
+
+    function initHeight(){
+        var h = document.body.clientHeight;
+        var pages = document.querySelectorAll(".contain");
+        for(index in pages){
+            if(!isNaN(index)){
+                pages[index].style.lineHeight=h+"px";
+            }
+        }
+        var imgShow = document.querySelectorAll(".img-show");
+        for(index in imgShow){
+            if(!isNaN(index)){
+                imgShow[index].style.maxHeight=h*5/12+"px";
+            }
+        }
+        var resultPic = document.querySelector(".result .result-pic");
+        resultPic.style.height = (h-100)+"px";
+
+        if(h<=480){
+            $(".page .midle .tit").css('font-size',"0.9rem");
+            $(".qus-detail .answer div.f-ib").css("font-size","0.85rem");
+            $(".qus-detail .answer img").css("font-size","14px");
+            $(".right-answer").css("top","4%");
+            $(".wrong-answer").css("top","4%");
+        }else{
+            $(".page .midle .tit").css('font-size',"1rem");
+            $(".qus-detail .answer div.f-ib").css("font-size","1rem");
+            $(".qus-detail .answer img").css("font-size","18px");
+            $(".right-answer").css("top","13%");
+            $(".wrong-answer").css("top","13%");
+        }
+    }
+
+    var score = 0;
+    function judgeAnswer(index,answer){
+        questionNum = parseInt(index);
+        if(index<14){
+            $(".next-qus").css("display","block");
+        }else{
+            $(".next-quso").css("display","block");
+        }
+
+
+        $answer_bg.css('display',"block");
+        if(answer == quetionList[index].default){
+            $right_answer.css('display',"block");
+            score += 6.66667;
+        }else{
+            $wrong_answer.css('display',"block");
+        }
+    }
+
+
+    function initWeixin(){
+        var configErrFlag = false;
+        wx.ready(function(){
+            console.log("微信接口配置成功！");
+            wx.onMenuShareTimeline({
+                title: '看看你的艺术细胞有几个', // 分享标题
+                link: location.href, // 分享链接
+                imgUrl: '', // 分享图标
+                success: function () {
+                    // 用户确认分享后执行的回调函数
+                },
+                cancel: function () {
+                    // 用户取消分享后执行的回调函数
+                }
+            });
+
+
+        });
+        wx.error(function(res){
+            if(!configErrFlag){
+                console.log("微信接口配置失败！重新获取配置数据~");
+                getConfigInfo(true);
+                configErrFlag = true;
+            }else{
+                console.log("微信接口配置仍然失败！可能是配置信息错误");
+            }
+
+        });
+        getConfigInfo();
+        function getConfigInfo(configErr){
+            $.get("/weixin",{url:location.href,configErr:configErr},function(redata){
+                console.log(redata);
+                wx.config({
+                    debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                    appId: 'wx4f7385897534762d', // 必填，公众号的唯一标识
+                    timestamp: redata.signatureJSON.timestamp, // 必填，生成签名的时间戳
+                    nonceStr: redata.signatureJSON.noncestr, // 必填，生成签名的随机串
+                    signature: redata.signature,// 必填，签名，见附录1
+                    jsApiList: ["onMenuShareTimeline","onMenuShareAppMessage","onMenuShareQQ","onMenuShareWeibo"] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+                });
+
+            });
+        }
+
+    }
+
+</script>
+</body>
+</html>

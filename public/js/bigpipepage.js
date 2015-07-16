@@ -1,0 +1,1 @@
+alert("hello! i`m showing with bigPipe way!!");

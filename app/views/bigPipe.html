@@ -1,0 +1,20 @@
+
+
+<h1>{{title }}</h1>
+<p>Welcome to {{title}}</p>
+
+<div id="dom0"></div>
+{{#extend "scripts"}}
+<script type="text/javascript" src="/js/bigPipe.js"></script>
+<script>
+    var bigpipe=new Bigpipe();
+    bigpipe.ready('test',function(data){
+        bigpipe.loadCss(data.css);
+        bigpipe.fillHTML(data.pid,data.htmlCnt);
+        bigpipe.loadJs(data.js);
+    })
+</script>
+{{/extend}}
+
+
+

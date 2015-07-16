@@ -1,0 +1,22 @@
+
+
+  <h1>{{title }}</h1>
+  <p>Welcome to {{foo title}}</p>
+
+
+
+  {{>welcome}}
+
+<div class="directory">
+
+</div>
+
+{{#extend "scripts"}}
+<script type="text/javascript" src="/js/bigPipe.js"></script>
+<script>
+  var bigpipe=new Bigpipe();
+  bigpipe.ready('directory',function(data){
+     console.log(data);
+  });
+</script>
+{{/extend}}
