@@ -43,7 +43,11 @@ function getJsapi_ticket(callback){
         });
     });
 }
-var sha1 = require("sha1");
+//var sha1 = require("./jssha");
+
+var jsSHA = require('./jssha');
+
+
 var signatureJSON =null,signature=null;
 function makeSignature(url,callback){
     getJsapi_ticket(function(jsapi_ticket){
@@ -51,17 +55,22 @@ function makeSignature(url,callback){
             url:url,
             noncestr:"KTNW",
             jsapi_ticket:jsapi_ticket,
-            timestamp:(new Date()).getTime()
+            timestamp:Math.floor((new Date()).getTime()/1000+7000)
         };
         var signatureString = "jsapi_ticket="+signatureJSON.jsapi_ticket+"&noncestr="+signatureJSON.noncestr+"&timestamp="+signatureJSON.timestamp+"&url="+signatureJSON.url;
-        signature = sha1.hex(signatureString);
+        var shaObj = new jsSHA(signatureString, 'TEXT');
+        signature = shaObj.getHash('SHA-1', 'HEX');
+
         callback(signatureJSON,signature);
     });
 }
 function getSignature(url,callback){
     signatureJSON.url = url;
     var signatureString = "jsapi_ticket="+signatureJSON.jsapi_ticket+"&noncestr="+signatureJSON.noncestr+"&timestamp="+signatureJSON.timestamp+"&url="+signatureJSON.url;
-    signature = sha1.hex(signatureString);
+    //signature = sha1.hex(signatureString);
+    var shaObj = new jsSHA(signatureString, 'TEXT');
+    signature = shaObj.getHash('SHA-1', 'HEX');
+
     callback(signatureJSON,signature);
 
 }
