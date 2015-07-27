@@ -20,9 +20,10 @@ router.get('/', function (req, res, next) {
         });
     });
 });
+/*
 router.get('/backpart', function (req, res, next) {
     mongoFun.getDirectory(function(data){
         console.log(data);
         res.sendfile('public/backpart/app/index.html');
     });
-});
+});*/

@@ -21,3 +21,21 @@ router.get('/directory', function (req, res, next) {
         res.send(data);
     });
 });
+
+router.post('/opDirectory', function (req, res, next) {
+    if(req.body.operation == "delete"){
+        mongoFun.deleteDirectory(req.body._id,function(err,r){
+            res.send({error:err});
+        });
+    }else if(req.body.operation == "edit"){
+        mongoFun.editDirectory(req.body._id,req.body.name,function(err,r){
+            res.send({error:err});
+        })
+    }else if(req.body.operation == "add"){
+        mongoFun.addDirectory(req.body.parent, req.body.name, function(err,r){
+            res.send({error:err});
+        })
+    }
+
+
+});

@@ -42,3 +42,44 @@
 .g-sd1{position:relative;float:left;width:290px;margin-right:-290px;}
 .g-mn1{float:right;width:100%;}
 .g-mn1c{margin-left:300px;}
+
+
+/*右键菜单*/
+.menu-background{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+}
+.menu-background .dropdown-menu{
+    position: absolute;
+    display: block;
+}
+.menu-background .dropdown-menu a{
+    cursor: pointer;
+}
+
+/*数据管理*/
+.data-manage .list-group-item {
+    padding: 0px 0px 0px 15px;
+    margin-bottom: 0px;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-bottom: 0px;
+}
+.data-manage .list-group{
+    margin-bottom: 0;
+    border-top: 1px solid #ddd;
+}
+.data-manage .list-group-item a{
+    display: block;
+    cursor: pointer;
+    margin: 0;
+    padding: 10px 0;
+}
+.data-manage .list-group-item a:hover{
+    background-color: #ddd;
+}

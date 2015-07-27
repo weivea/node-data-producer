@@ -45,7 +45,7 @@ function getJsapi_ticket(callback){
 }
 //var sha1 = require("./jssha");
 
-var jsSHA = require('./jssha');
+var jsSHA = require('./../app/controllers/jssha/src/sha');
 
 
 var signatureJSON =null,signature=null;
@@ -84,7 +84,7 @@ module.exports = function (app) {
 
 router.get('/weixin', function (req, res, next) {
 
-    if(req.query.configErr){
+    /*if(req.query.configErr){
         makeSignature(req.query.url,function(signatureJSON_, signature_){
             res.send({
                 signatureJSON:signatureJSON_,
@@ -107,8 +107,10 @@ router.get('/weixin', function (req, res, next) {
                 });
             });
         }
-    }
-
+    }*/
+    res.send({
+    aaa:"aaa"
+    });
 
 
     //res.end();

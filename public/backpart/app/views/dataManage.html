@@ -1,0 +1,60 @@
+<div class="g-bd1 f-cb data-manage">
+    <div class="g-sd1 f-cb">
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="item in directory">
+                <tree family="item" tier="root">
+
+                </tree>
+
+            </li>
+
+        </ul>
+
+    </div>
+    <div class="g-mn1">
+        <div class="g-mn1c">
+            <div ui-view="">
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- EditModal -->
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">修改目录名称</h4>
+            </div>
+            <div class="modal-body">
+                <input class="form-control" type="text" ng-model="curMenu.name">
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" ng-click="editMenuSave()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- AddModal -->
+<div class="modal fade" id="AddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="AddModalLabel">添加目录</h4>
+            </div>
+            <div class="modal-body">
+                <input class="form-control" type="text" ng-model="newMenuName">
+            </div>
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary" ng-click="addMenuSave()">保存</button>
+            </div>
+        </div>
+    </div>
+</div>

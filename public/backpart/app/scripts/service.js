@@ -39,3 +39,18 @@ angular.module('backpartApp').factory('RecursionHelper', ['$compile', function($
         }
     };
 }]);
+angular.module('backpartApp').factory('menuShow', function(){
+    angular.element(".menu-background").click(function(){
+        angular.element(this).addClass("hidden");
+    });
+    return function(type,loc){
+        if(type== "menu1"){
+            angular.element(".menu-background").removeClass("hidden");
+            angular.element(".menu-background .menu-1").css({
+                left:loc.x,
+                top:loc.y
+            });
+        }
+    };
+
+});

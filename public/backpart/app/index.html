@@ -39,7 +39,7 @@
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#/examManage">数据管理</a></li>
+              <li class="active"><a href="#/dataManage">数据管理</a></li>
               <li><a ng-href="#/about">登录</a></li>
               <li><a ng-href="#/">退出</a></li>
             </ul>
@@ -49,7 +49,10 @@
     </div>
 
     <div class="my-container">
-    <div ng-view=""></div>
+    <div ui-view="">
+
+
+    </div>
     </div>
 
     <div class="footer">
@@ -58,6 +61,13 @@
       </div>
     </div>
 
+    <div class="menu-background hidden">
+        <ul class="dropdown-menu menu-1">
+            <li><a ng-click="addSubMenu()">添加子菜单</a></li>
+            <li><a ng-click="editMenu()">编辑</a></li>
+            <li><a ng-click="deletMenu()">删除</a></li>
+        </ul>
+    </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -83,6 +93,7 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -92,7 +103,8 @@
         <script src="scripts/directive.js"></script>
 
         <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/examManage.js"></script>
+        <script src="scripts/controllers/dataManage.js"></script>
+        <script src="scripts/controllers/dataDetail.js"></script>
         <!-- endbuild -->
 </body>
 </html>
