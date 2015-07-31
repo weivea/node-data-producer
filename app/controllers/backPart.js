@@ -17,7 +17,7 @@ router.get('/backpart', function (req, res, next) {
 });
 router.get('/directory', function (req, res, next) {
     mongoFun.getDirectory(function(data){
-        console.log(data);
+        //console.log(data);
         res.send(data);
     });
 });
@@ -37,5 +37,37 @@ router.post('/opDirectory', function (req, res, next) {
         })
     }
 
-
 });
+
+router.get('/getData', function (req, res, next) {
+    var repData = {
+        key:req.query.key
+    };
+    mongoFun.findData(repData,function(err,r){
+        res.send({error:err,data:r});
+    })
+});
+
+router.post('/saveDataBlock', function (req, res, next) {
+    var upData = req.body.dataBlock;
+    mongoFun.updataDataBlock(upData,function(err,r){
+        res.send({error:err,data:r});
+    })
+});
+
+
+router.post('/insertDataBlock', function (req, res, next) {
+
+    var inData = req.body.dataBlock;
+    mongoFun.insertData(inData,function(err,r){
+        res.send({error:err});
+    })
+});
+
+router.post('/delDataBlock', function (req, res, next) {
+    var _id = req.body._id;
+    mongoFun.delDataBlock(_id,function(err,r){
+        res.send({error:err});
+    })
+});
+

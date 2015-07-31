@@ -1,1 +1,76 @@
-lalalalaldla啦啦身份的
+
+<div class="data-d">
+    <!--<button class="btn btn-default" ng-click="insertData()">插入数据</button>-->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4>数据列表</h4>
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+                <div ng-repeat="item in dataList" class="list-group-item-box f-pr">
+                    <a  class="list-group-item margin-b-20" ng-click="showDataDetail(item._id)">
+                        {{$index+1}}、&emsp;{{item.dataBlockName}}
+
+
+                    </a>
+                    <span class="delete-list-item" ng-click="delDataBlock(item._id)">—</span>
+                </div>
+
+            </div>
+            <a class="addNewData btn btn-default form-control" ng-click="showDataDetail()">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- 数据块的信息内容 -->
+<div class="dataBlock {{(dataBlockShow)?dataBlockShow:'hidden'}}">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            {{editingDataBlock.dataBlockName}}
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="dataBlockShow = 'hidden_';">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="panel-body">
+            <div class="input-group margin-b-20">
+                    <span class="input-group-addon bg-primary">
+                        数据块名称：
+                    </span>
+                <input type="text" class="form-control" ng-model="editingDataBlock.dataBlockName">
+            </div><!-- /input-group -->
+            <div class="box margin-b-20 f-pr data-property" ng-repeat="item in editingDataBlock.data">
+                <a class="delete-self" ng-click="delDataProperty($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
+                <div class="input-group cli">
+                        <span class="input-group-addon">
+                            属性名称：
+                        </span>
+                    <input type="text" class="form-control" ng-model="item.keyName">
+                </div>
+                <div class="input-group cli">
+                        <span class="input-group-addon">
+                            &emsp;属性值：
+                        </span>
+                    <input type="text" class="form-control" ng-model="item.val">
+                </div>
+                <div class="input-group cli">
+                        <span class="input-group-addon">
+                            属性描述：
+                        </span>
+                    <input type="text" class="form-control" ng-model="item.desc">
+                </div>
+            </div><!-- /input-group -->
+
+            <a class="addNewData btn btn-success" ng-click="addDataProperty()" style="width: 200px">
+                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            </a>
+            <div class="clearfix">
+
+                <a ng-if="DataBlockOPWay== 'edit'" class="btn btn-info pull-right" ng-click="saveDataBlock()">保存</a>
+                <a ng-if="DataBlockOPWay== 'add'" class="btn btn-info pull-right" ng-click="insertDataBlock()">保存</a>
+                <a class="btn btn-default pull-right" style="margin-right: 10px" ng-click="dataBlockShow = 'hidden_';">关闭</a>
+            </div>
+        </div>
+    </div>
+</div>

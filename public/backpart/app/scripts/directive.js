@@ -6,6 +6,7 @@ angular.module('backpartApp').directive("tree", function(RecursionHelper) {
     var link = function(scope, element, attrs) {
         if(attrs.tier == "root"){
             scope.showMe = true;
+            scope.rotate = "rotate270";
         }else{
             scope.showMe = false;
         }
@@ -13,6 +14,8 @@ angular.module('backpartApp').directive("tree", function(RecursionHelper) {
 
         scope.toggle = function toggle() {
             scope.showMe = !scope.showMe;
+
+            scope.rotate = (!!scope.rotate)?'':"rotate270";
         };
 
 
@@ -41,7 +44,7 @@ angular.module('backpartApp').directive("tree", function(RecursionHelper) {
         template:
             '<a ng-click="toggle()" href="#/dataManage/detail/{{family._id}}">' +
             '{{ (family.name)?family.name:"未命名" }} ' +
-            '<span ng-if="family.children_.length" class="pull-right glyphicon glyphicon-chevron-down" aria-hidden="true"></span>' +
+            '<span ng-if="family.children_.length" class="pull-right glyphicon glyphicon-chevron-left {{rotate}}" aria-hidden="true"></span>' +
             '</a>'+
             '<ul class="list-group" ng-if="family.children_.length" ng-show="showMe">' +
             '<li class="list-group-item"  ng-repeat="item in family.children_">' +

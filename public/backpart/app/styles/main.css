@@ -1,4 +1,30 @@
+html{
+    height: 100%;
 
+}
+body{
+    min-height: 100%;
+    position: relative;
+
+}
+body > .footer{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+body > .header{
+    position: relative;
+    z-index: 2;
+}
+.header .navbar{
+    margin-bottom: 0;
+}
+*, :after, :before {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+a{cursor: pointer;}
 .f-cb:after,.f-cbli li:after{display:block;clear:both;visibility:hidden;height:0;overflow:hidden;content:".";}
 .f-cb,.f-cbli li{zoom:1;}
 .f-ib{display:inline-block;*zoom:1;*display:inline;}
@@ -41,9 +67,35 @@
 .g-bd1{margin:0 0 10px;}
 .g-sd1{position:relative;float:left;width:290px;margin-right:-290px;}
 .g-mn1{float:right;width:100%;}
-.g-mn1c{margin-left:300px;}
+.data-manage .list-group-box{
+    position: fixed;
+    z-index: 1;
+    width: 290px;
 
-
+    height: 100%;
+    left: 0;
+    top: 0;
+    padding: 53px 5px 30px 0;
+}
+.data-manage .list-sub-box{
+    border-right: 1px solid #aaa;
+    overflow: auto;
+    height: 100%;
+}
+.data-manage .data-right{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    padding: 55px 0 30px 290px;
+    top: 0;
+    left: 0;
+    overflow: auto;
+}
+.data-manage .data-right > div{
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
 /*右键菜单*/
 .menu-background{
     position: fixed;
@@ -52,6 +104,7 @@
     width: 100%;
     height: 100%;
     background-color: transparent;
+    z-index: 2;
 }
 .menu-background .dropdown-menu{
     position: absolute;
@@ -61,8 +114,8 @@
     cursor: pointer;
 }
 
-/*数据管理*/
-.data-manage .list-group-item {
+/*目录数据管理*/
+.data-manage .g-sd1 .list-group-item {
     padding: 0px 0px 0px 15px;
     margin-bottom: 0px;
     border-top: 0px;
@@ -82,4 +135,95 @@
 }
 .data-manage .list-group-item a:hover{
     background-color: #ddd;
+}
+
+/*数据块的管理*/
+.data-manage .dataBlock{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    transform-origin: 100% 0px;
+}
+.data-manage .dataBlock.show{
+    -webkit-animation: formright 0.5s ease-in-out 0s both;
+    animation: formright 0.5s ease-in-out 0s both;
+}
+.data-manage .dataBlock.hidden_{
+    -webkit-animation: disright 0.5s ease-in-out 0s both;
+    animation: disright 0.5s ease-in-out 0s both;
+}
+.data-manage .delete-self{
+    position: absolute;
+    z-index: 1;
+    border: 1px solid #88A9E4;
+    background-color: white;
+    border-radius: 100%;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    line-height: 25px;
+    top: -10px;
+    left: -10px;
+    display: none;
+}
+.data-manage .data-property:hover .delete-self{
+    display: block;
+}
+
+.data-manage .delete-list-item{
+    display: block;
+    width: 20px;
+    height: 20px;
+    border: 1px solid red;
+    line-height: 17px;
+    text-align: center;
+    border-radius: 100%;
+    color: red;
+    cursor: pointer;
+    position: absolute;
+    right: -10px;
+    top: 10px;
+    background-color: white;
+    display: none;
+}
+.data-manage .list-group-item-box:hover .delete-list-item{
+    display: block;
+}
+
+/*tool*/
+.input-group-addon.bg-primary{
+    color: #fff;
+    background-color: #337ab7;
+}
+.margin-b-20{
+    margin-bottom: 20px !important;
+}
+.rotate270{
+    transform:rotate(270deg);
+    -webkit-transform:rotate(270deg); /* Safari and Chrome */
+}
+/*animation*/
+@keyframes formright
+{
+    0%   {transform:  scaleX(0);  opacity: 0;}
+    100%   {transform: scaleX(1);   opacity: 1;}
+}
+@-webkit-keyframes formright /* Safari �� Chrome */
+{
+    0%   {-webkit-transform: scaleX(0);   opacity: 0;}
+    100% {-webkit-transform: scaleX(1);   opacity: 1;}
+}
+@keyframes disright
+{
+    0%   {transform: scaleX(1);   opacity: 1;}
+    100%   {transform:  scaleX(0);  opacity: 0;display: none;}
+
+}
+@-webkit-keyframes disright /* Safari �� Chrome */
+{
+    0% {-webkit-transform: scaleX(1);   opacity: 1;}
+    100%   {-webkit-transform: scaleX(0);   opacity: 0;display: none;}
 }

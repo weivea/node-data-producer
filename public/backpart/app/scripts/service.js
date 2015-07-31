@@ -43,6 +43,11 @@ angular.module('backpartApp').factory('menuShow', function(){
     angular.element(".menu-background").click(function(){
         angular.element(this).addClass("hidden");
     });
+    angular.element(".menu-background").bind('contextmenu', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        angular.element(this).addClass("hidden");
+    });
     return function(type,loc){
         if(type== "menu1"){
             angular.element(".menu-background").removeClass("hidden");

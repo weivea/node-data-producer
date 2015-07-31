@@ -1,18 +1,21 @@
 <div class="g-bd1 f-cb data-manage">
     <div class="g-sd1 f-cb">
-        <ul class="list-group">
-            <li class="list-group-item" ng-repeat="item in directory">
-                <tree family="item" tier="root">
+        <div class="list-group-box">
+            <div class="list-sub-box">
+            <ul class="list-group">
+                <li class="list-group-item" ng-repeat="item in directory">
+                    <tree family="item" tier="root">
 
-                </tree>
+                    </tree>
 
-            </li>
+                </li>
 
-        </ul>
-
+            </ul>
+            </div>
+        </div>
     </div>
     <div class="g-mn1">
-        <div class="g-mn1c">
+        <div class="g-mn1c data-right">
             <div ui-view="">
 
 
