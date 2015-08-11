@@ -13,7 +13,7 @@ angular.module('backpartApp').controller('dataDetailCtrl', ['$rootScope','$scope
     };
     $scope.DataBlockOPWay=null;
     function initData(){
-        $http.get("/getData?key="+$scope.classId)
+        $http.get("/db/getData?key="+$scope.classId)
         .success(function(data, status, headers, config) {
             if(!data.error){
                 console.log(data);
@@ -58,7 +58,7 @@ angular.module('backpartApp').controller('dataDetailCtrl', ['$rootScope','$scope
     };
 
     $scope.saveDataBlock = function(){//保存数据块
-        $http.post("/saveDataBlock",{dataBlock:$scope.editingDataBlock})
+        $http.post("/db/saveDataBlock",{dataBlock:$scope.editingDataBlock})
             .success(function(data, status, headers, config) {
                 if(!data.error){
                     alert("修改成功");
@@ -72,7 +72,7 @@ angular.module('backpartApp').controller('dataDetailCtrl', ['$rootScope','$scope
     };
 
     $scope.insertDataBlock = function(){//插入数据块
-        $http.post("/insertDataBlock",{dataBlock:$scope.editingDataBlock})
+        $http.post("/db/insertDataBlock",{dataBlock:$scope.editingDataBlock})
             .success(function(data, status, headers, config) {
                 if(!data.error){
                     alert("修改成功");
@@ -87,7 +87,7 @@ angular.module('backpartApp').controller('dataDetailCtrl', ['$rootScope','$scope
     };
 
     $scope.delDataBlock = function(_id){
-        $http.post("/delDataBlock",{_id:_id})
+        $http.post("/db/delDataBlock",{_id:_id})
             .success(function(data, status, headers, config) {
                 if(!data.error){
                     alert("删除成功");

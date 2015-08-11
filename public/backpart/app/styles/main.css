@@ -193,6 +193,30 @@ a{cursor: pointer;}
     display: block;
 }
 
+/*login page*/
+.login-page .login-block{
+    margin: 100px auto;
+    width: 500px;
+    padding: 50px;
+    background-color: #BED8FF;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #B7C4D7;
+}
+
+.login-page .login-block .input-group{
+    margin: 30px 0;
+}
+
+
+
+
+
+
+
+
+
+
+
 /*tool*/
 .input-group-addon.bg-primary{
     color: #fff;

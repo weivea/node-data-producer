@@ -5,7 +5,7 @@ var dbClient = undefined;
 var cfg = require("../../config/config.js");
 var ObjectID = null;
 
-var directoryColl=null,shujuColl=null;
+var directoryColl=null,shujuColl=null,userColl=null;
 function getDb(){
     var mongoClient = require('mongodb').MongoClient;
     ObjectID = require('mongodb').ObjectID;
@@ -15,8 +15,12 @@ function getDb(){
             //callback(dbClient);
             directoryColl = db.collection("directory");
             shujuColl = db.collection("shuju");
-
+            userColl = db.collection("users");
             console.log("数据库初始化成功~");
+            db.createIndex('shuju', {key:1} , {background:true, w:1}, function(err, indexName) {
+                console.log("数据库添加索引~");
+                console.log(indexName);
+            });
         }
     });
 }
@@ -26,7 +30,7 @@ getDb();
 
 //获取目录数据
 function getDirectory(callback){
-    directoryColl.find().toArray(function(err, docs) {
+    directoryColl.find({}).toArray(function(err, docs) {
         if(!err){
             /*for( index in docs ){
              docs[index]._id = docs[index]._id.id;
@@ -133,3 +137,12 @@ function delDataBlock(_id, callback){
     });
 }
 exports.delDataBlock = delDataBlock;
+
+
+//用户管理相关接口
+function checkUser(userName,callback){
+    userColl.findOne({userName:userName},function(err,doc){
+        callback(err,doc);
+    });
+}
+exports.checkUser = checkUser;

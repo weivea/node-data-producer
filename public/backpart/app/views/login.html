@@ -1,0 +1,22 @@
+<div class="login-page container">
+    <div class="login-block">
+        <form class="loginForm" name="loginForm" ng-submit="login(loginForm.$valid)">
+
+
+        <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-user" aria-hidden="true"></span></span>
+            <input type="text" name="userName" class="form-control" placeholder="Username" maxlength="50" required>
+        </div>
+        <div class="input-group">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-asterisk" aria-hidden="true"></span></span>
+            <input type="password" name="password" class="form-control" placeholder="Password" maxlength="50" required>
+        </div>
+
+        <div class="input-group" style="width: 100%">
+            <input type="submit" class="btn btn-info form-control" value="Login" >
+        </div>
+
+        </form>
+
+    </div>
+</div>

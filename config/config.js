@@ -9,7 +9,10 @@ var config = {
       name: 'mine'
     },
     port: 3000,
-    dbUrl:'mongodb://localhost:27017/test'
+    dbUrl:'mongodb://localhost:27017/test',
+    sessionDb:"session",
+    dbHost:"localhost",
+    dbPort:"27017"
   },
 
   test: {
@@ -18,7 +21,10 @@ var config = {
       name: 'mine'
     },
     port: 3000,
-      dbUrl:'mongodb://localhost:27017/test'
+      dbUrl:'mongodb://localhost:27017/test',
+      sessionDb:"session",
+      dbHost:"localhost",
+      dbPort:"27017"
   },
 
   production: {
@@ -27,7 +33,10 @@ var config = {
       name: 'mine'
     },
     port: 3000,
-      dbUrl:'mongodb://localhost:27017/test'
+      dbUrl:'mongodb://localhost:27017/test',
+      sessionDb:"session",
+      dbHost:"localhost",
+      dbPort:"27017"
   }
 };
 

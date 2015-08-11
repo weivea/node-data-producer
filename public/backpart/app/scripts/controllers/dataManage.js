@@ -12,9 +12,14 @@ angular.module('backpartApp')
         $scope.directory = null;
 
         $scope.initDirectory = function(){
-            $http.get("/directory",null)
+            $http.get("/db/directory",null)
                 .success(function(data, status, headers, config) {
-                    $scope.directory = data;
+                    if(data.error){
+                        alert(data.error);
+                    }else{
+                        $scope.directory = data;
+                    }
+
                 }).error(function(data, status, headers, config) {
                     console.log(data);
                 });
@@ -30,7 +35,7 @@ angular.module('backpartApp')
             angular.element("#AddModal").modal('show');
         };
         $scope.addMenuSave = function(){
-            $http.post("/opDirectory",{operation:"add", parent:$scope.curMenu._id, name:$scope.newMenuName})
+            $http.post("/db/opDirectory",{operation:"add", parent:$scope.curMenu._id, name:$scope.newMenuName})
                 .success(function(data, status, headers, config) {
                     $scope.newMenuName = '';
                     if(!data.error){
@@ -48,7 +53,7 @@ angular.module('backpartApp')
             angular.element("#EditModal").modal('show');
         };
         $scope.editMenuSave = function(){
-            $http.post("/opDirectory",{operation:"edit",_id:$scope.curMenu._id,name:$scope.curMenu.name})
+            $http.post("/db/opDirectory",{operation:"edit",_id:$scope.curMenu._id,name:$scope.curMenu.name})
                 .success(function(data, status, headers, config) {
                     if(!data.error){
                         angular.element("#EditModal").modal('hide');
@@ -67,7 +72,7 @@ angular.module('backpartApp')
             }else if($scope.curMenu.boss){
                 alert("根目录，无法删除。");
             }else{
-                $http.post("/opDirectory",{operation:"delete",_id:$scope.curMenu._id})
+                $http.post("/db/opDirectory",{operation:"delete",_id:$scope.curMenu._id})
                     .success(function(data, status, headers, config) {
                         if(!data.error){
                             alert("删除成功");

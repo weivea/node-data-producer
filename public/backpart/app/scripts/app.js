@@ -31,6 +31,11 @@ angular
             templateUrl: 'views/main.html',
             controller: 'MainCtrl'
         })
+        .state('login', {
+            url: '/login',
+            templateUrl: 'views/login.html',
+            controller: 'LoginCtrl'
+        })
         .state('dataManage', {
             url: '/dataManage',
             templateUrl: 'views/dataManage.html',

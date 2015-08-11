@@ -8,6 +8,8 @@ var compress = require('compression');
 var methodOverride = require('method-override');
 var exphbs  = require('express-handlebars');
 var hbshelpers= require('./hbsHelpers');
+var session = require('express-session');
+var mongoStore = require("connect-mongo")(session);
 module.exports = function(app, config) {
   app.engine('.html', exphbs({
     layoutsDir: config.root + '/app/views/layouts/',
@@ -35,7 +37,21 @@ module.exports = function(app, config) {
   app.use(bodyParser.urlencoded({
     extended: true
   }));
-  app.use(cookieParser());
+    app.use(cookieParser());
+    app.use(session({
+        secret: 'weivea',
+        name: 'weiveaSID',   //这里的name值得是cookie的name，默认cookie的name是：connect.sid
+        cookie: {maxAge: 1000*60*60*24 },  //设置maxAge是1天，即1天后session和相应的cookie失效过期
+        resave: false,
+        saveUninitialized: true,
+        store:new mongoStore({
+            db:config.sessionDb,
+            host:config.dbHost,
+            port:config.dbPort
+        })
+    }));
+
+
   app.use(compress());
   app.use(express.static(config.root + '/public'));
   app.use(methodOverride());
