@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="backpartApp">
+  <body ng-app="backpartApp" ng-controller="rootCtrl">
+
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -33,15 +34,16 @@
               <span class="icon-bar"></span>
             </button>
 
-            <a class="navbar-brand" href="#/">数据后台系统</a>
+            <a class="navbar-brand" href="#/main">数据后台系统</a>
           </div>
 
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
             <ul class="nav navbar-nav">
               <li class="active"><a href="#/dataManage">数据管理</a></li>
-              <li><a ng-href="#/login">登录</a></li>
-              <li><a ng-href="#/">退出</a></li>
+              <li ng-show="!isLogin"><a ng-href="#/login">登录</a></li>
+              <li ng-show="isLogin"><a>{{userData.userName}}</a></li>
+              <li ng-show="isLogin"><a ng-click="logoutOp()">退出</a></li>
             </ul>
           </div>
         </div>
@@ -69,6 +71,7 @@
             <li><a ng-click="deletMenu()">删除</a></li>
         </ul>
     </div>
+
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -103,6 +106,7 @@
         <script src="scripts/service.js"></script>
         <script src="scripts/directive.js"></script>
 
+        <script src="scripts/controllers/rootCtrl.js"></script>
         <script src="scripts/controllers/main.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/dataManage.js"></script>

@@ -55,10 +55,16 @@ router.post('/login/logoutPost', function (req, res, next){
     if(req.session.userData){
         req.session.userData = null;
     }
-
     res.send({msg:"退出成功！"})
 });
+router.post('/login/getLoginedUser', function (req, res, next){
+    if(req.session.userData){
+        res.send(req.session.userData);
+    }else{
+        res.send({error:"还未登陆！"})
+    }
 
+});
 
 
 router.get('/db/directory', function (req, res, next) {

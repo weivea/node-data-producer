@@ -2,7 +2,7 @@
  * Created by weijianli on 2015/5/27.
  */
 angular.module('backpartApp')
-    .controller('dataManageCtrl',['$rootScope','$scope','$http','menuShow', function ($rootScope,$scope,$http,menuShow) {
+    .controller('dataManageCtrl',['$rootScope','$scope','$http','$location','menuShow', function ($rootScope,$scope,$http,$location,menuShow) {
         $scope.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -16,6 +16,7 @@ angular.module('backpartApp')
                 .success(function(data, status, headers, config) {
                     if(data.error){
                         alert(data.error);
+
                     }else{
                         $scope.directory = data;
                     }

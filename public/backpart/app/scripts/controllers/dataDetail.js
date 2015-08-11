@@ -46,18 +46,39 @@ angular.module('backpartApp').controller('dataDetailCtrl', ['$rootScope','$scope
     };
     $scope.addDataProperty = function(){
         $scope.editingDataBlock.data.push({
-
             keyName:"",
             val:"",
             desc:""
-
         });
     };
+    function checkKeyNameRepetitive(){//检测同一个数据块中是否有两个及以上的相同属性名
+
+        var repetitiveCount = 0;
+        var index,index2;
+        for(index in  $scope.editingDataBlock.data){
+            repetitiveCount = 0;
+            for(index2 in $scope.editingDataBlock.data){
+                if($scope.editingDataBlock.data[index].keyName == $scope.editingDataBlock.data[index2].keyName){
+                    repetitiveCount++;
+                    if(repetitiveCount>1){
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
     $scope.delDataProperty = function(index){
         $scope.editingDataBlock.data.splice(index,1);
     };
 
     $scope.saveDataBlock = function(){//保存数据块
+        if(checkKeyNameRepetitive()){//有重复属性名的不通过
+            alert("检测到两个及以上的 相同的属性名称！");
+            return;
+        }
+
         $http.post("/db/saveDataBlock",{dataBlock:$scope.editingDataBlock})
             .success(function(data, status, headers, config) {
                 if(!data.error){
@@ -72,6 +93,10 @@ angular.module('backpartApp').controller('dataDetailCtrl', ['$rootScope','$scope
     };
 
     $scope.insertDataBlock = function(){//插入数据块
+        if(checkKeyNameRepetitive()){//有重复属性名的不通过
+            alert("检测到两个及以上的 相同的属性名称！");
+            return;
+        }
         $http.post("/db/insertDataBlock",{dataBlock:$scope.editingDataBlock})
             .success(function(data, status, headers, config) {
                 if(!data.error){
