@@ -35,9 +35,16 @@ function getDirectory(callback){
             /*for( index in docs ){
              docs[index]._id = docs[index]._id.id;
              }*/
-            var fOne = docs.shift();
-            var newDocs = tidyDirectory(fOne,docs);
-            callback([newDocs]);
+            if(!docs || docs.length == 0){
+              callback(null);
+            }
+            else{
+              var fOne = docs.shift();
+
+              var newDocs = tidyDirectory(fOne,docs);
+              callback([newDocs]);
+            }
+
         }else{
             console.log("mongoErr:"+err);
         }
@@ -93,7 +100,11 @@ exports.editDirectory = editDirectory;
 
 //添加目录
 function addDirectory(parent,name, callback){
-    directoryColl.insertOne({parent: ObjectID.createFromHexString(parent),name: name,timestamp:(new Date()).getTime()},function(err,r){
+  var pp = "null";
+    if(!!parent){
+      pp = ObjectID.createFromHexString(parent);
+    }
+    directoryColl.insertOne({parent: pp,name: name,timestamp:(new Date()).getTime()},function(err,r){
         callback(err,r);
     });
 }
@@ -137,6 +148,14 @@ function delDataBlock(_id, callback){
     });
 }
 exports.delDataBlock = delDataBlock;
+////根据key值来删除数据
+function delDataBlockByKey(key, callback){
+  shujuColl.deleteMany({key: key},function(err,r){
+    callback(err,r);
+  });
+}
+exports.delDataBlockByKey = delDataBlockByKey;
+
 
 
 //用户管理相关接口

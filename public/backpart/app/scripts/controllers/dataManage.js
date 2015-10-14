@@ -2,7 +2,7 @@
  * Created by weijianli on 2015/5/27.
  */
 angular.module('backpartApp')
-    .controller('dataManageCtrl',['$rootScope','$scope','$http','$location','menuShow', function ($rootScope,$scope,$http,$location,menuShow) {
+    .controller('dataManageCtrl',['$rootScope','$scope','$http','$location','$window','menuShow', function ($rootScope,$scope,$http,$location,$window,menuShow) {
         $scope.awesomeThings = [
             'HTML5 Boilerplate',
             'AngularJS',
@@ -36,7 +36,7 @@ angular.module('backpartApp')
             angular.element("#AddModal").modal('show');
         };
         $scope.addMenuSave = function(){
-            $http.post("/db/opDirectory",{operation:"add", parent:$scope.curMenu._id, name:$scope.newMenuName})
+            $http.post("/db/opDirectory",{operation:"add", parent:$scope.curMenu?$scope.curMenu._id:null, name:$scope.newMenuName})
                 .success(function(data, status, headers, config) {
                     $scope.newMenuName = '';
                     if(!data.error){
@@ -73,6 +73,10 @@ angular.module('backpartApp')
             }else if($scope.curMenu.boss){
                 alert("根目录，无法删除。");
             }else{
+                  var conf = $window.confirm("该目录数据也将同时删除，确定是否删除？");
+                if(!conf){
+                  return;
+                }
                 $http.post("/db/opDirectory",{operation:"delete",_id:$scope.curMenu._id})
                     .success(function(data, status, headers, config) {
                         if(!data.error){

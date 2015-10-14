@@ -76,8 +76,11 @@ router.get('/db/directory', function (req, res, next) {
 
 router.post('/db/opDirectory', function (req, res, next) {
     if(req.body.operation == "delete"){
-        mongoFun.deleteDirectory(req.body._id,function(err,r){
-            res.send({error:err});
+        mongoFun.deleteDirectory(req.body._id,function(err1,r){
+          mongoFun.delDataBlockByKey(req.body._id,function(err2,r){
+            res.send({error1:err1,error2:err2});
+          });
+
         });
     }else if(req.body.operation == "edit"){
         mongoFun.editDirectory(req.body._id,req.body.name,function(err,r){

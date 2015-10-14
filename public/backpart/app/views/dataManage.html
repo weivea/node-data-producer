@@ -9,7 +9,12 @@
                     </tree>
 
                 </li>
+                <li ng-if="(!directory || directory.length ==0)" class="list-group-item">
+                  <a ng-click="addSubMenu()">
+                    添加根目录
+                  </a>
 
+                </li>
             </ul>
             </div>
         </div>
