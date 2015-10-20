@@ -15,7 +15,7 @@ router.get('/', function (req, res, next) {
             title: 'weiveaPage'
         },function(err,str){
             res.write(str);
-            res.write('<script>bigpipe.set("directory",'+JSON.stringify(data.data)+');</script>');
+            res.write('<script>bigpipe.set("directory",'+JSON.stringify(data)+');</script>');
             res.end();
         });
     });
