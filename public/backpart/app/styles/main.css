@@ -208,8 +208,14 @@ a{cursor: pointer;}
 }
 
 
-
-
+/*user-manage*/
+.user-manage{
+  max-width: 680px;
+  padding: 30px 20px;
+  margin: 50px auto;
+  border-radius: 5px;
+  box-shadow: 0 0 7px rgba(54, 85, 170, 0.8);
+}
 
 
 

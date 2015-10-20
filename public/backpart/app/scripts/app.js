@@ -45,5 +45,11 @@ angular
             url: '/detail/:dataId',
             templateUrl: 'views/dataDetail.html',
             controller: 'dataDetailCtrl'
-        });
+        })
+      .state('userManage', {
+        url: '/userManage',
+        templateUrl: 'views/userManage.html',
+        controller: 'userManageCtrl'
+      })
+    ;
 });
