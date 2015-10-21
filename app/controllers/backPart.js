@@ -58,11 +58,23 @@ router.post('/login/logoutPost', function (req, res, next){
     res.send({msg:"退出成功！"})
 });
 router.post('/login/getLoginedUser', function (req, res, next){
-    if(req.session.userData){
-        res.send(req.session.userData);
+
+  mongoFun.isAnyUser(function(err,users){
+    if(!users){
+      res.send({creatUser:1})
     }else{
+      if(req.session.userData){
+        res.send(req.session.userData);
+      }else{
         res.send({error:"还未登陆！"})
+      }
     }
+
+
+
+  });
+
+
 
 });
 
@@ -126,3 +138,96 @@ router.post('/db/delDataBlock', function (req, res, next) {
     })
 });
 
+
+
+//用户管理
+
+router.post('/opUsers/getUsers', function (req, res, next) {
+
+  mongoFun.isAnyUser(function(err,users){
+    if(!users){
+      res.send({creatUser:1})
+    }else{
+      if(req.session.userData){
+        res.send(users);
+      }else{
+        res.send({error:"还未登陆！"})
+      }
+    }
+  });
+});
+
+router.post('/opUsers/manage', function (req, res, next) {
+  if(!req.session.userData){
+    if(req.body.way == "add"){
+      mongoFun.isAnyUser(function(err,users){
+        if(!users){
+
+          mongoFun.addUser({userName:req.body.user.userName,pass:req.body.user.pass},function(err,r){
+            if(!err){
+              res.send({tologin:1});
+            }
+          })
+
+        }
+      });
+    }
+  }else{
+    if(req.body.way == "add"){
+      mongoFun.addUser({userName:req.body.user.userName,pass:req.body.user.pass},function(err,r){
+        if(!err){
+          res.send({success:1});
+        }
+      })
+    }
+  }
+
+});
+
+
+
+//数据对外接口
+router.post('/interface/data', function (req, res, next) {
+  provideData(req, res, next);
+
+});
+router.get('/interface/data', function (req, res, next) {
+  provideData(req, res, next);
+});
+
+function provideData(req, res, next){
+  if(req.query.key){
+    var repData = {
+      key:req.query.key
+    };
+    mongoFun.findData(repData,function(err,r){
+      if(!err){
+        var reData = [];
+
+        for(_ind in r){
+          var tData = tidyData(r[_ind].data);
+          tData.dataBlockName = r[_ind].dataBlockName;
+          reData.push(tData);
+        }
+
+        res.send({error:err,data:reData});
+      }
+
+    })
+  }else if(req.query.id){
+    mongoFun.findDataByID(req.query.id,function(err,r){
+      if(!err){
+        res.send({error:err,data:tidyData(r)});
+      }
+    });
+  }
+
+
+  function tidyData(inArray){
+    var reData = {};
+    for(_index in inArray){
+      reData[inArray[_index].keyName]=inArray[_index].val;
+    }
+    return reData;
+  }
+}

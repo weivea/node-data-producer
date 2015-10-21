@@ -16,7 +16,7 @@ angular.module('backpartApp').controller('dataDetailCtrl', ['$rootScope','$scope
         $http.get("/db/getData?key="+$scope.classId)
         .success(function(data, status, headers, config) {
             if(!data.error){
-                console.log(data);
+                //console.log(data);
                 $scope.dataList = data.data;
             }else{
                 alert(JSON.stringify(data.error));
@@ -40,6 +40,9 @@ angular.module('backpartApp').controller('dataDetailCtrl', ['$rootScope','$scope
         }else{
             $scope.DataBlockOPWay = "add";
             $scope.editingDataBlock = $scope.newDataBlock;
+            if($scope.dataList.length && $scope.dataList.length>0){
+              $scope.editingDataBlock.data = $scope.dataList[0].data;
+            }
         }
 
         $scope.dataBlockShow = 'show';

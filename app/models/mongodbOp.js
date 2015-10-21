@@ -123,6 +123,12 @@ function findData(repData, callback){
 }
 exports.findData = findData;
 
+exports.findDataByID = function(id,callback){
+  var repData = {_id: ObjectID.createFromHexString(id)};
+  shujuColl.findOne(repData,function(err,r){
+    callback(err,r);
+  });
+};
 
 //插入数据
 function insertData(data, callback){
@@ -165,3 +171,20 @@ function checkUser(userName,callback){
     });
 }
 exports.checkUser = checkUser;
+
+function isAnyUser(callback){
+  userColl.findOne(function(err,doc){
+    callback(err,doc);
+  });
+}
+exports.isAnyUser = isAnyUser;
+
+
+function addUser(user,callback){
+  userColl.insertOne(user,function(err,r){
+    callback(err,r);
+  });
+}
+exports.addUser = addUser;
+
+

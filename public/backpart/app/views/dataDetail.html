@@ -4,6 +4,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <h4>数据列表</h4>
+          <div>访问连接：{{urlrootPath}}/interface/data?key={{classId}}</div>
         </div>
         <div class="panel-body">
             <div class="list-group">
@@ -14,6 +15,9 @@
 
                     </a>
                     <span class="delete-list-item" ng-click="delDataBlock(item._id)">—</span>
+                    <div style="padding: 0 10px">
+
+                    </div>
                 </div>
 
             </div>
@@ -28,10 +32,14 @@
 <div class="dataBlock {{(dataBlockShow)?dataBlockShow:'hidden'}}">
     <div class="panel panel-default">
         <div class="panel-heading">
-            {{editingDataBlock.dataBlockName}}
             <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="dataBlockShow = 'hidden_';">
                 <span aria-hidden="true">&times;</span>
             </button>
+          <h5>{{editingDataBlock.dataBlockName}}</h5>
+          <div style="padding: 10px 0 0">
+            访问连接：{{urlrootPath}}/interface/data?id={{editingDataBlock._id}}
+          </div>
+
         </div>
         <div class="panel-body">
             <div class="input-group margin-b-20">
@@ -39,7 +47,10 @@
                         数据块名称：
                     </span>
                 <input type="text" class="form-control" ng-model="editingDataBlock.dataBlockName">
-            </div><!-- /input-group -->
+            </div>
+
+
+          <!-- /input-group -->
             <div class="box margin-b-20 f-pr data-property" ng-repeat="item in editingDataBlock.data">
                 <a class="delete-self" ng-click="delDataProperty($index)"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></a>
                 <div class="input-group cli">

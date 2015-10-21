@@ -1,13 +1,18 @@
 /**
  * Created by weijianli on 2015/8/11.
  */
-angular.module('backpartApp').controller('rootCtrl', ['$rootScope','$scope','$http','$location', function ($rootScope,$scope,$http,$location) {
+angular.module('backpartApp').controller('rootCtrl', ['$rootScope','$scope','$http','$location','$window', function ($rootScope,$scope,$http,$location,$window) {
     $rootScope.isLogin = false;
     $rootScope.userData = null;
+    $rootScope.urlrootPath = $window.location.host;
+
     function getLoginedUser( callback){
         $http.post('/login/getLoginedUser',null)
             .success(function(data, status, headers, config) {
-                if(data.error){
+                if(data.creatUser){
+                  $location.path("/userManage")
+                }
+                else if(data.error){
                     alert(data.error);
                     $location.path("/login");
                 }else{
