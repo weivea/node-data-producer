@@ -1,8 +1,8 @@
 # node-data-producer
 ---
-我的node测试
+最简单的数据生成系统
 
-基于node-mongodb-native，express的最简单的数据生成系统
+基于node-mongodb-native,express,angular的最简单的数据生成系统
 
 
 mongodb安装好就能用，默认配置端口27017
